@@ -37,10 +37,22 @@ async function run() {
       const result=await productsCollection.findOne(query)
       res.send(result)
     })
+
+
+    app.get('/productbycategory',async(req,res)=>{
+      const category=req.query.category
+      const query={category:category}
+      const cursor = productsCollection.find(query)
+      const result=await cursor.toArray()
+      res.send(result)
+    })
     } finally {
     //   await client.close();
     }
   }
+
+
+ 
   run().catch(console.dir);
 
 
