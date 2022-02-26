@@ -56,6 +56,15 @@ async function run() {
     })
 
 
+     // deleteBikesAPi
+     app.delete('/products/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) }
+      const result = await productsCollection.deleteOne(query)
+      res.json(result)
+    })
+
+
     // post order api
 
     app.post('/orders', async (req, res) => {
@@ -69,7 +78,7 @@ async function run() {
 
     app.get('/orders', async (req, res) => {
       const email = req.query.email;
-      console.log(email)
+      
       const query={email:email}
       const cursor =  ordersCollection.find(query)
       const result= await cursor.toArray()
